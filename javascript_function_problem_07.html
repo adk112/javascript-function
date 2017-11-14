@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+
+	function height() 
+	{
+		var result = '';
+		var count = 0;
+		var leng = arguments[0].length;
+	
+		for (var i = 1; i < arguments.length; i++) 
+		{
+			if (arguments[i].length > leng) 
+			{
+				leng = arguments[i].length;
+			}
+		}
+
+		for (i = 0; i < leng; i++) 
+		{
+			for (var j = 0; j < arguments.length; j++) 
+			{
+				if (arguments[j].charAt(i) == 'O') 
+				{
+					count++;
+					if (count < arguments.length)
+						continue;
+				}
+				else if (arguments[j].charAt(i) == '\n')
+					count = '\n';                              
+			}
+	
+			if (count == '\n' && i % 5 == 4) 
+			{
+				result = result.slice(0, -1);
+				result += count.toString();
+			}
+			else if (i == leng - 1 && j == arguments.length)
+				result += count.toString();
+			else
+				result += count.toString() + ' ';
+	
+			count = 0;
+		}
+		console.log(result);
+		return result;
+	}
+
+	exepect(height('O', 'OOOO\nOOOO'), '2 1 1 1\n1 1 1 1');
+	exepect(height('OOOO', 'OOOO\nOOOO'), '2 2 2 2\n1 1 1 1');
+	exepect(height('OO\nOO', 'OOOO\nOOOO'), '2 2 1 1\n2 2 1 1');
+	exepect(height('OO\nOO\nOO', 'OOOO\nOOOO'), '2 2 1 1\n2 2 1 1\n1 1 0 0');
+	exepect(height('O', 'OOOO\nOOOO', 'OOOO'), '3 2 2 2\n1 1 1 1');
+	exepect(height('OOOO', 'OOOO\nOOOO', 'OOOO'), '3 3 3 3\n1 1 1 1');
+	exepect(height('OO\nOO', 'OOOO\nOOOO', 'OOOO'), '3 3 2 2\n2 2 1 1');exepect(height('OO\nOO\nOO', 'OOOO\nOOOO', 'O\nO\nO\nO'), '3 2 1 1\n3 2 1 1\n2 1 0 0\n1 0 0 0');exepect(height('O', 'O', 'O'), '3');
+	
+	function exepect(l, r) 
+	{
+		if (l == r)
+			console.log('pass');
+		else
+			console.log('fail');
+	}
+	</script>
+</head>
+<body>
+</body>
+</html>
